@@ -1,0 +1,130 @@
+.TH HSH 1
+.SH NAME
+hsh \- Holberton Shell	
+.SH SYNOPSIS
+.B hsh
+[command] [options ...]
+.SH COPYRIGHT
+hsh \- is a holberton school first trimester project
+.SH DESCRIPTION
+.B hsh
+is a shell command interpreter that executes command read from the standard input or from file.
+.B hsh
+is intend to be a clone of the standard command interpreter of 
+.B Unix
+and 
+.B Unix-like
+system.
+.SH OPTIONS
+A  simple command is a sequence of optional variable assignments followed by blank-separated words and redirections, 
+and terminated by a control operator.  The first word specifies the command to be
+executed, and is passed as argument zero.  The remaining words are passed as arguments to the invoked command.
+.PP
+The return value of a simple command is its exit status, or 128+n if the command is terminated by signal n.
+.SS
+Piplines
+A pipeline is a sequence of one or more commands separated by one of the control operators | or |&.  The format for a pipeline is:
+.PP
+[command [..ARGS]] [| - |&] [command2 [..ARGS]]
+.PP
+The standard output of command is connected via a pipe to the standard input of command2.  This connection is performed before any redirections specified by the command (see REDIRECTION below).   If
+|&  is  used,  command's standard error, in addition to its standard output, is connected to command2's standard input through the pipe; it is shorthand for 2>&1 |.  This implicit redirection of the
+standard error to the standard output is performed after any redirections specified by the command.
+.SS Lists
+
+A list is a sequence of one or more pipelines separated by one of the operators ;, &, &&, or ||, and optionally terminated by one of ;, &, or <newline>.
+Of these list operators, && and || have equal precedence, followed by ; and &, which have equal precedence.
+A sequence of one or more newlines may appear in a list instead of a semicolon to delimit commands.
+.PP
+If  a command is terminated by the control operator &, the shell executes the command in the background in a subshell.  The shell does not wait for the command to finish, and the return status is 0.
+Commands separated by a ; are executed sequentially; the shell waits for each command to terminate in turn.  The return status is the exit status of the last command executed.
+AND and OR lists are sequences of one or more pipelines separated by the && and || control operators, respectively.  AND and OR lists are executed with left associativity.  An AND list has the form
+.PP
+command1 && command2
+.PP
+command2 is executed if, and only if, command1 returns an exit status of zero.
+.PP
+An OR list has the form:
+.PP
+command1 || command2
+.PP
+command2 is executed if and only if command1 returns a non-zero exit status.  The return status of AND and OR lists is the exit status of the last command executed in the list.
+.SH AUTHORS
+Shafau Arin-ola and Micheal O.B \- Alx Software Engineer Students
+.SH VERSIONS
+.B hsh
+
+CD
+cd: cd [-] [dir]
+    Change the shell working directory.
+    
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+    
+    If the directory is not found, and the shell option `cdable_vars' is set,
+    the word is assumed to be  a variable name.  If that variable has a value,
+    its value is used for DIR.
+    
+    Options:
+      (-)       redirect the parrent work directory to the old parent
+                work directory an environnment variable OLDPWD
+    
+    Exit Status:
+    Returns 0 if the directory is changed, and if $PWD is set successfully
+    ,negtive number otherwise.
+
+EXIT
+exit: exit [n]
+    Exit the shell.
+    
+    Exits the shell with a status of N.  If N is omitted, the exit status
+    is that of the last command executed.
+
+HELP
+GNU bash, version 4.4.20(1)-release (x86_64-pc-linux-gnu)
+These shell commands are defined internally.  Type `help' to see this list.
+Type `help name' to find out more about the function `name'.
+Use `info bash' to find out more about the shell in general.
+Use `man -k' or `info' to find out more about commands not in this list.
+
+A star (*) next to a name means that the command is disabled.
+
+ job_spec [&]                                                                        history [-c] [-d offset] [n] or history -anrw [filename] or history -ps arg [arg>
+ (( expression ))                                                                    if COMMANDS; then COMMANDS; [ elif COMMANDS; then COMMANDS; ]... [ else COMMANDS>
+ . filename [arguments]                                                              jobs [-lnprs] [jobspec ...] or jobs -x command [args]
+ :                                                                                   kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+ [ arg... ]                                                                          let arg [arg ...]
+ [[ expression ]]                                                                    local [option] name[=value] ...
+ alias [-p] [name[=value] ... ]                                                      logout [n]
+ bg [job_spec ...]                                                                   mapfile [-d delim] [-n count] [-O origin] [-s count] [-t] [-u fd] [-C callback] >
+ bind [-lpsvPSVX] [-m keymap] [-f filename] [-q name] [-u name] [-r keyseq] [-x ke>  popd [-n] [+N | -N]
+ break [n]                                                                           printf [-v var] format [arguments]
+ builtin [shell-builtin [arg ...]]                                                   pushd [-n] [+N | -N | dir]
+ caller [expr]                                                                       pwd [-LP]
+ case WORD in [PATTERN [| PATTERN]...) COMMANDS ;;]... esac                          read [-ers] [-a array] [-d delim] [-i text] [-n nchars] [-N nchars] [-p prompt] >
+ cd [-L|[-P [-e]] [-@]] [dir]                                                        readarray [-n count] [-O origin] [-s count] [-t] [-u fd] [-C callback] [-c quant>
+ command [-pVv] command [arg ...]                                                    readonly [-aAf] [name[=value] ...] or readonly -p
+ compgen [-abcdefgjksuv] [-o option] [-A action] [-G globpat] [-W wordlist]  [-F f>  return [n]
+ complete [-abcdefgjksuv] [-pr] [-DE] [-o option] [-A action] [-G globpat] [-W wor>  select NAME [in WORDS ... ;] do COMMANDS; done
+ compopt [-o|+o option] [-DE] [name ...]                                             set [-abefhkmnptuvxBCHP] [-o option-name] [--] [arg ...]
+ continue [n]                                                                        shift [n]
+ coproc [NAME] command [redirections]                                                shopt [-pqsu] [-o] [optname ...]
+ declare [-aAfFgilnrtux] [-p] [name[=value] ...]                                     source filename [arguments]
+ dirs [-clpv] [+N] [-N]                                                              suspend [-f]
+ disown [-h] [-ar] [jobspec ... | pid ...]                                           test [expr]
+ echo [-neE] [arg ...]                                                               time [-p] pipeline
+ enable [-a] [-dnps] [-f filename] [name ...]                                        times
+ eval [arg ...]                                                                      trap [-lp] [[arg] signal_spec ...]
+ exec [-cl] [-a name] [command [arguments ...]] [redirection ...]                    true
+ exit [n]                                                                            type [-afptP] name [name ...]
+ export [-fn] [name[=value] ...] or export -p                                        typeset [-aAfFgilnrtux] [-p] name[=value] ...
+ false                                                                               ulimit [-SHabcdefiklmnpqrstuvxPT] [limit]
+ fc [-e ename] [-lnr] [first] [last] or fc -s [pat=rep] [command]                    umask [-p] [-S] [mode]
+ fg [job_spec]                                                                       unalias [-a] name [name ...]
+ for NAME [in WORDS ... ] ; do COMMANDS; done                                        unset [-f] [-v] [-n] [name ...]
+ for (( exp1; exp2; exp3 )); do COMMANDS; done                                       until COMMANDS; do COMMANDS; done
+ function name { COMMANDS ; } or name () { COMMANDS ; }                              variables - Names and meanings of some shell variables
+ getopts optstring name [arg]                                                        wait [-n] [id ...]
+ hash [-lr] [-p pathname] [-dt] [name ...]                                           while COMMANDS; do COMMANDS; done
+ help [-dms] [pattern ...]                                                           { COMMANDS ; }
+V1.0.0
